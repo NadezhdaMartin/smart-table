@@ -12,20 +12,13 @@ export function initFiltering(elements) {
 
     const applyFiltering = (query, state, action) => {
             // @todo: #4.2 — обработать очистку поля
-            const buttons = document.querySelectorAll('button');
-            for (let i = 0; i < buttons.length; i++) {
-                const button = buttons[i];
-                const name = button.getAttribute('name');
-                if (name && name.includes('clear')) {
-                    const input = button.closest('.filter-wrapper').querySelector('input'); // замените '.parent-class' на класс родительского элемента
-                    if (input) {
-                        input.value = ''; // Сброс значения input
-                        
-                        // Получаем имя поля из атрибута data-field
-                        const fieldName = button.dataset.field;
-                        // Обновляем соответствующее поле в state
-                        state[fieldName] = '';
-                    }
+            if (action && action.name === "clear") {
+            const actionField = action.dataset.field;
+                if (actionField === "customer") {
+                    elements.searchByCustomer.value && (elements.searchByCustomer.value = "");
+                }
+                if (actionField === "date") {
+                    elements.searchByDate.value && (elements.searchByDate.value = "");
                 }
             }
 
